@@ -32,7 +32,7 @@
         color: #000000;
     }
 
-    .menu-bar ul li a:hover {
+    .menu-bar ul li a:hover, .student-paging a:hover {
         text-decoration: none;
         color: #000000;
     }
@@ -64,7 +64,7 @@
         font-weight: 700;
     }
 
-    .student-table {
+    .student-table, .student-paging {
         text-align: center;
     }
 
@@ -81,5 +81,16 @@
 
     .table-container .student-table tr td.student-info {
         padding-top: 15px;
+    }
+
+    .title {
+        font-size: 28px;
+        font-weight: 700;
+        text-align: center;
+        color: blue;
+    }
+    .student-paging a, .student-paging span {
+        color: black;
+        font-size: 18px;
     }
 </style>

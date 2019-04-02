@@ -52,5 +52,23 @@
             </table>
         </div>
     </div>
+    <div class="student-paging container col-sm-offset-4 col-sm-4">
+            <c:if test="${currentPage != 1}">
+                <a href="${pageContext.request.contextPath}/showStudents?page=${currentPage - 1}">Prev</a>
+            </c:if>
+            <c:forEach begin="1" end="${noOfPages}" var="i">
+                <c:choose>
+                    <c:when test="${currentPage eq i}">
+                        <span>${i}</span>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${pageContext.request.contextPath}/showStudents?page=${i}">${i}</a>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+            <c:if test="${currentPage lt noOfPages}">
+                <a href="${pageContext.request.contextPath}/showStudents?page=${currentPage + 1}">Next</a>
+            </c:if>
+    </div>
 </body>
 </html>

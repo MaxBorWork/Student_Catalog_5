@@ -20,6 +20,15 @@ public class Student {
         this.address = address;
     }
 
+    public Student(String surname, String name, String secondName, int groupNum, String city, Address address) {
+        this.surname = surname;
+        this.name = name;
+        this.secondName = secondName;
+        this.groupNum = groupNum;
+        this.city = city;
+        this.address = address;
+    }
+
     public Student() {
     }
 
