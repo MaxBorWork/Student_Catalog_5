@@ -1,8 +1,12 @@
 package by.borisevich.studentCatalog.controller;
 
 import by.borisevich.studentCatalog.dao.StudentDao;
+import by.borisevich.studentCatalog.model.Constant;
 import by.borisevich.studentCatalog.model.Student;
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,12 +21,13 @@ public class StudentServlet extends HttpServlet {
     private Logger logger = Logger.getLogger(StudentServlet.class);
 
     public StudentServlet() {
+        Constant.loggerConfig(logger);
+        dao = new StudentDao();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("show Students get request");
-        dao = new StudentDao();
         int pageid = 1;
         String spageid=req.getParameter("page");
         if (spageid != null) {
@@ -44,7 +49,8 @@ public class StudentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("show Students post request");
         String buttonValue = req.getParameter("studentButton");
-        String studentId = buttonValue.substring(buttonValue.length()-1);
+        String[] buttonArr = buttonValue.split("_");
+        String studentId = buttonArr[buttonArr.length-1];
         if (buttonValue.contains("delStudent")) {
             dao.deleteStudent(Integer.parseInt(studentId));
             doGet(req,resp);

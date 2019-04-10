@@ -1,9 +1,9 @@
 package by.borisevich.studentCatalog.dao;
 
 import by.borisevich.studentCatalog.model.Address;
+import by.borisevich.studentCatalog.model.Constant;
 import by.borisevich.studentCatalog.model.Student;
 import org.apache.log4j.Logger;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,37 +11,20 @@ import java.util.List;
 public class StudentDao {
 
     private Logger log = Logger.getLogger(StudentDao.class);
-    private static final String url = "jdbc:mysql://localhost:3306/studentList?useUnicode=true&characterEncoding=utf8";
-    private static final String user = "root";
-    private static final String password = "root";
 
     public StudentDao() {
         try {
+            Constant.loggerConfig(log);
             log.info("creating datatables");
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, user, password);
+            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
 
             Statement statement = con.createStatement();
 
-            statement.execute("create table if not exists Student (" +
-                    "id int NOT NULL AUTO_INCREMENT," +
-                    "surname varchar(255) not null," +
-                    "name varchar(255) not null," +
-                    "secondName varchar(255) not null," +
-                    "groupNum int not null," +
-                    "city varchar(255) not null," +
-                    "PRIMARY KEY (id))");
+            statement.execute(Constant.SQL_CREATE_STUDENT_TABLE);
 
-            statement.execute("create table if not exists Address (" +
-                    "id int NOT NULL AUTO_INCREMENT," +
-                    "street varchar(255) not null," +
-                    "house int not null," +
-                    "flat int not null," +
-                    "PRIMARY KEY (id)," +
-                    "FOREIGN KEY (id) REFERENCES Student(id)" +
-                    ")" );
+            statement.execute(Constant.SQL_CREATE_ADDRESS_TABLE);
 
-//            statement.execute("create unique index if not exists Address_id_uindex on Address (id)");
             con.close();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -50,7 +33,7 @@ public class StudentDao {
 
     public void addSomeStudents() {
         try {
-            Connection con = DriverManager.getConnection(url, user, password);
+            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
             Statement statement = con.createStatement();
             statement.execute("INSERT INTO Student (surname, name, secondName, groupNum, city) VALUES ('Borisevich', 'Maksim', 'Romanovich', 621702, 'Minsk'), ('Shokal', 'Irina', 'Dmitrievna', 621701, 'Minsk'), ('Gudilin', 'Andrei', 'Sergeevich', 621702, 'Minsk'), ('Pashkevich', 'Elena', 'Sergeevna', 621702, 'Minsk'), ('Anishcik', 'Andrei', 'Sergeevich', 621702, 'Minsk')");
             statement.execute("INSERT INTO Address (street, house, flat) VALUES ('Nezavisimost', 155, 105), ('Nezavisimost', 155, 105), ('Kalinouskava', 119, 25), ('Kolasa', 28, 613), ('Kolasa', 28, 603)");
@@ -63,13 +46,9 @@ public class StudentDao {
 
     public void addStudent(Student student) {
         try {
-            Connection con = DriverManager.getConnection(url, user, password);
+            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
             if (student != null) {
-
-                String insertStudentSQL = "INSERT INTO Student"
-                        + "(surname, name, secondName, groupNum, city) VALUES"
-                        + "(?,?,?,?,?)";
-                PreparedStatement ps = con.prepareStatement(insertStudentSQL);
+                PreparedStatement ps = con.prepareStatement(Constant.SQL_INSERT_STUDENT_QUERY);
                 ps.setString(1, student.getSurname());
                 ps.setString(2, student.getName());
                 ps.setString(3, student.getSecondName());
@@ -77,10 +56,7 @@ public class StudentDao {
                 ps.setString(5, student.getCity());
                 ps .executeUpdate();
 
-                String insertAddressSQL = "INSERT INTO Address"
-                        + "(street, house, flat) VALUES"
-                        + "(?,?,?)";
-                PreparedStatement preparedStatement = con.prepareStatement(insertAddressSQL);
+                PreparedStatement preparedStatement = con.prepareStatement(Constant.SQL_INSERT_ADDRESS_QUERY);
                 preparedStatement.setString(1, student.getAddress().getStreet());
                 preparedStatement.setInt(2, student.getAddress().getHouse());
                 preparedStatement.setInt(3, student.getAddress().getFlat());
@@ -95,20 +71,16 @@ public class StudentDao {
 
     public void updateStudent(Student student) {
         try {
-            Connection con = DriverManager.getConnection(url, user, password);
+            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
             if (student != null) {
-                String updateAddressSQL = "UPDATE Address SET street=?, house=?, flat=?"
-                        + " WHERE Address.id=?;";
-                PreparedStatement preparedStatement = con.prepareStatement(updateAddressSQL);
+                PreparedStatement preparedStatement = con.prepareStatement(Constant.SQL_UPDATE_ADDRESS_QUERY);
                 preparedStatement.setString(1, student.getAddress().getStreet());
                 preparedStatement.setInt(2, student.getAddress().getHouse());
                 preparedStatement.setInt(3, student.getAddress().getFlat());
                 preparedStatement.setInt(4, student.getId());
                 preparedStatement.executeUpdate();
 
-                String updateStudentSQL = "UPDATE Student SET surname=?, name=?, secondName=?, groupNum=?, city=? "
-                        + " WHERE id=?";
-                PreparedStatement ps = con.prepareStatement(updateStudentSQL);
+                PreparedStatement ps = con.prepareStatement(Constant.SQL_UPDATE_STUDENT_QUERY);
                 ps.setString(1, student.getSurname());
                 ps.setString(2, student.getName());
                 ps.setString(3, student.getSecondName());
@@ -128,10 +100,9 @@ public class StudentDao {
     public List<Student> listStudents() {
         List<Student> list = new ArrayList<>();
         try {
-            Connection con = DriverManager.getConnection(url, user, password);
+            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
             Statement statement = con.createStatement();
-            String userQuery = "SELECT * FROM Student INNER JOIN Address ON Student.id = Address.id";
-            ResultSet resultSet = statement.executeQuery(userQuery);
+            ResultSet resultSet = statement.executeQuery(Constant.SQL_SELECT_ALL_RECORDS);
             while (resultSet.next()) {
                 list.add(new Student(resultSet.getInt(1),
                                         resultSet.getString(2),
@@ -155,8 +126,10 @@ public class StudentDao {
     public List<Student> getStudentsList(int start,int total) {
         List<Student> list=new ArrayList<>();
         try{
-            Connection con =  DriverManager.getConnection(url, user, password);
-            PreparedStatement ps = con.prepareStatement("SELECT * from Student INNER JOIN Address ON Student.id = Address.id limit "+(start-1)+","+total);
+            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            PreparedStatement ps = con.prepareStatement("SELECT * from Student " +
+                                                                "INNER JOIN Address ON Student.id = Address.id limit "+
+                                                                    (start-1)+","+total);
             ResultSet resultSet = ps.executeQuery();
             while(resultSet.next()){
                 list.add(new Student(resultSet.getInt(1),
@@ -179,9 +152,8 @@ public class StudentDao {
 
     public Student getStudent(int id) {
         try {
-            Connection con = DriverManager.getConnection(url, user, password);
-            String getStudentQuery = "SELECT * FROM Student INNER JOIN Address ON Student.id = Address.id WHERE Student.id =?";
-            PreparedStatement statement = con.prepareStatement(getStudentQuery);
+            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            PreparedStatement statement = con.prepareStatement(Constant.SQL_SELECT_STUDENT_BY_ID);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             Student foundStudent = new Student();
@@ -209,14 +181,12 @@ public class StudentDao {
 
     public void deleteStudent(int id) {
         try {
-            Connection con = DriverManager.getConnection(url, user, password);
-            String delAddressQuery = "DELETE FROM Address WHERE id=?";
-            PreparedStatement preparedStatement = con.prepareStatement(delAddressQuery);
+            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            PreparedStatement preparedStatement = con.prepareStatement(Constant.SQL_DELETE_ADDRESS_QUERY);
             preparedStatement.setInt(1, id);
             preparedStatement .executeUpdate();
 
-            String delStudentQuery = "DELETE FROM Student WHERE id=?";
-            PreparedStatement statement = con.prepareStatement(delStudentQuery);
+            PreparedStatement statement = con.prepareStatement(Constant.SQL_DELETE_STUDENT_QUERY);
             statement.setInt(1, id);
             statement .executeUpdate();
 
@@ -227,11 +197,10 @@ public class StudentDao {
         }
     }
 
-    Student getLastStudent() {
+    public Student getLastStudent() {
         try {
-            Connection con = DriverManager.getConnection(url, user, password);
-            String getStudentQuery = "SELECT * FROM Student INNER JOIN Address ON Student.id = Address.id WHERE Student.id = (SELECT max(id) FROM Student)";
-            PreparedStatement statement = con.prepareStatement(getStudentQuery);
+            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            PreparedStatement statement = con.prepareStatement(Constant.SQL_SELECT_LAST_RECORD);
             ResultSet resultSet = statement.executeQuery();
             Student foundStudent = new Student();
             if (resultSet.next()) {
@@ -259,9 +228,8 @@ public class StudentDao {
     public int getColOfRecords() {
         int colOfRecords = 0;
         try {
-            Connection con = DriverManager.getConnection(url, user, password);
-            String getColOfRecordsQuery = "SELECT COUNT(id) FROM Student";
-            PreparedStatement statement = con.prepareStatement(getColOfRecordsQuery);
+            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            PreparedStatement statement = con.prepareStatement(Constant.SQL_GET_COL_OF_RECORDS);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 colOfRecords = resultSet.getInt(1);

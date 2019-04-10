@@ -2,9 +2,9 @@ package by.borisevich.studentCatalog.controller;
 
 import by.borisevich.studentCatalog.dao.StudentDao;
 import by.borisevich.studentCatalog.model.Address;
+import by.borisevich.studentCatalog.model.Constant;
 import by.borisevich.studentCatalog.model.Student;
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +15,10 @@ import java.io.IOException;
 public class AddStudentServlet extends HttpServlet {
 
     private Logger logger = Logger.getLogger(AddStudentServlet.class);
+
+    public AddStudentServlet() {
+        Constant.loggerConfig(logger);
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

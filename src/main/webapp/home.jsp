@@ -13,7 +13,6 @@
         <div class="row">
             <table class="table student-table">
                 <tr>
-                    <td rowspan="2" class="huge-title">№</td>
                     <td rowspan="2" class="huge-title">ФИО</td>
                     <td rowspan="2" class="huge-title">Группа</td>
                     <td colspan="4" style="font-size:18px;font-weight:800">Адрес прописки</td>
@@ -28,7 +27,6 @@
                 </tr>
                 <c:forEach items="${students}" var="student">
                     <tr>
-                        <td class="student-info"><span>${student.id}</span></td>
                         <td class="student-info"><span>${student.surname} ${student.name} ${student.secondName}</span></td>
                         <td class="student-info"><span>${student.groupNum}</span></td>
                         <td class="student-info"><span>${student.city}</span></td>
@@ -38,13 +36,13 @@
                         <td>
                             <form action="" method="POST">
                                 <button type="submit" class="editBtn btn student-button"
-                                        name="studentButton" value="editStudent${student.id}">Изменить</button>
+                                        name="studentButton" value="editStudent_${student.id}">Изменить</button>
                             </form>
                         </td>
                         <td>
                             <form action="" method="POST">
                                 <button type="submit" class="delBtn btn student-button"
-                                        name="studentButton" value="delStudent${student.id}">Удалить</button>
+                                        name="studentButton" value="delStudent_${student.id}">Удалить</button>
                             </form>
                         </td>
                     </tr>

@@ -16,6 +16,7 @@
     .menu-bar ul {
         display: -webkit-box;
         margin-top: 10px;
+        padding-left: 75px;
     }
 
     .menu-bar ul li {
@@ -88,6 +89,7 @@
         font-weight: 700;
         text-align: center;
         color: blue;
+        padding-left: 0;
     }
     .student-paging a, .student-paging span {
         color: black;

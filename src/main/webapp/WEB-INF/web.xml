@@ -13,6 +13,7 @@
     <servlet-mapping>
         <servlet-name>studentServlet</servlet-name>
         <url-pattern>/showStudents</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -26,12 +27,22 @@
 
     <filter>
         <filter-name>logFilter</filter-name>
-        <filter-class>by.borisevich.studentCatalog.model.LogFilter</filter-class>
+        <filter-class>by.borisevich.studentCatalog.filter.LogFilter</filter-class>
     </filter>
 
     <filter-mapping>
         <filter-name>logFilter</filter-name>
         <servlet-name>studentServlet</servlet-name>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>charsetFilter</filter-name>
+        <filter-class>by.borisevich.studentCatalog.filter.CharsetFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>charsetFilter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
 </web-app>

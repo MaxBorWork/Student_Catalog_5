@@ -1,5 +1,6 @@
-package by.borisevich.studentCatalog.model;
+package by.borisevich.studentCatalog.filter;
 
+import by.borisevich.studentCatalog.model.Constant;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
@@ -12,6 +13,7 @@ public class LogFilter implements Filter {
     private Logger log = Logger.getLogger(LogFilter.class);
 
     public LogFilter() {
+        Constant.loggerConfig(log);
     }
 
     @Override
@@ -20,7 +22,8 @@ public class LogFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+                            throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
 
         String servletPath = req.getServletPath();
