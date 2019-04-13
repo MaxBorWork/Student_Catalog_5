@@ -11,33 +11,33 @@
             <div class="add-form col-sm-6 col-sm-offset-3">
                 <form action="<c:url value="/addStudent"/>" method="post" id="addStudentForm" role="form" class="addStudentForm">
                     <div class="form-group col-xs-10 col-xs-offset-1">
-                        <input type="text" name="studentFullName" id="studentFullName"
+                        <input type="text" id="studentFullName"
                                name="studentFIO" value="${studentFIO}"
-                               class="form-control" required="true" placeholder="ФИО"/>
+                               class="form-control" required placeholder="ФИО"/>
                     </div>
                     <div class="form-group col-xs-10 col-xs-offset-1">
-                        <input type="text" name="studentGroup" value="${studentGroup}" id="studentGroup"
-                               class="form-control" required="true" placeholder="№ группы"/>
+                        <input type="number" name="studentGroup" value="${studentGroup}" id="studentGroup"
+                               class="form-control" required placeholder="№ группы"/>
                     </div>
                     <div class="form-group col-xs-10 col-xs-offset-1">
                         <input type="text" name="studentCity" value="${studentCity}" id="studentCity"
-                               class="form-control" required="true" placeholder="Город"/>
+                               class="form-control" required placeholder="Город"/>
                     </div>
                     <div class="form-group col-xs-10 col-xs-offset-1">
                         <input type="text" name="studentStreet" value="${studentStreet}" id="studentStreet"
-                               class="form-control" required="true" placeholder="Улица"/>
+                               class="form-control" required placeholder="Улица"/>
                     </div>
                     <div class="form-group col-xs-10 col-xs-offset-1">
                         <input type="text" name="studentHouse" value="${studentHouse}" id="studentHouse"
-                               class="form-control" required="true" placeholder="Дом"/>
+                               class="form-control" required placeholder="Дом"/>
                     </div>
                     <div class="form-group col-xs-10 col-xs-offset-1">
                         <input type="text" name="studentFlat" value="${studentFlat}" id="studentFlat"
-                               class="form-control" required="true" placeholder="Квартира"/>
+                               class="form-control" required placeholder="Квартира"/>
                     </div>
                     <div class="form-group col-xs-10 col-xs-offset-1">
                         <input type="hidden" name="studentID" value="${studentID}" id="studentID"
-                               class="form-control" required="true" placeholder="Квартира"/>
+                               class="form-control" placeholder="ID"/>
                     </div>
                     <button type="submit" class="btn submit-button col-sm-6 col-sm-offset-3">
                         <span>Добавить</span>
@@ -48,4 +48,7 @@
         </div>
     </div>
 </body>
+<script>
+
+</script>
 </html>

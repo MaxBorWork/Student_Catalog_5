@@ -31,19 +31,6 @@ public class StudentDao {
         }
     }
 
-    public void addSomeStudents() {
-        try {
-            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
-            Statement statement = con.createStatement();
-            statement.execute("INSERT INTO Student (surname, name, secondName, groupNum, city) VALUES ('Borisevich', 'Maksim', 'Romanovich', 621702, 'Minsk'), ('Shokal', 'Irina', 'Dmitrievna', 621701, 'Minsk'), ('Gudilin', 'Andrei', 'Sergeevich', 621702, 'Minsk'), ('Pashkevich', 'Elena', 'Sergeevna', 621702, 'Minsk'), ('Anishcik', 'Andrei', 'Sergeevich', 621702, 'Minsk')");
-            statement.execute("INSERT INTO Address (street, house, flat) VALUES ('Nezavisimost', 155, 105), ('Nezavisimost', 155, 105), ('Kalinouskava', 119, 25), ('Kolasa', 28, 613), ('Kolasa', 28, 603)");
-
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void addStudent(Student student) {
         try {
             Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
@@ -58,8 +45,8 @@ public class StudentDao {
 
                 PreparedStatement preparedStatement = con.prepareStatement(Constant.SQL_INSERT_ADDRESS_QUERY);
                 preparedStatement.setString(1, student.getAddress().getStreet());
-                preparedStatement.setInt(2, student.getAddress().getHouse());
-                preparedStatement.setInt(3, student.getAddress().getFlat());
+                preparedStatement.setString(2, student.getAddress().getHouse());
+                preparedStatement.setString(3, student.getAddress().getFlat());
                 preparedStatement .executeUpdate();
                 con.close();
                 log.info("student " + student.getSurname() + " added");
@@ -75,8 +62,8 @@ public class StudentDao {
             if (student != null) {
                 PreparedStatement preparedStatement = con.prepareStatement(Constant.SQL_UPDATE_ADDRESS_QUERY);
                 preparedStatement.setString(1, student.getAddress().getStreet());
-                preparedStatement.setInt(2, student.getAddress().getHouse());
-                preparedStatement.setInt(3, student.getAddress().getFlat());
+                preparedStatement.setString(2, student.getAddress().getHouse());
+                preparedStatement.setString(3, student.getAddress().getFlat());
                 preparedStatement.setInt(4, student.getId());
                 preparedStatement.executeUpdate();
 
@@ -112,8 +99,8 @@ public class StudentDao {
                                         resultSet.getString(6),
                                         new Address(resultSet.getInt(7),
                                                     resultSet.getString(8),
-                                                    resultSet.getInt(9),
-                                                    resultSet.getInt(10))));
+                                                    resultSet.getString(9),
+                                                    resultSet.getString(10))));
             }
             con.close();
 
@@ -140,8 +127,8 @@ public class StudentDao {
                         resultSet.getString(6),
                         new Address(resultSet.getInt(7),
                                 resultSet.getString(8),
-                                resultSet.getInt(9),
-                                resultSet.getInt(10))));
+                                resultSet.getString(9),
+                                resultSet.getString(10))));
             }
             con.close();
         }catch(SQLException e){
@@ -166,8 +153,8 @@ public class StudentDao {
                 foundStudent.setCity(resultSet.getString(6));
                 foundStudent.setAddress(new Address(resultSet.getInt(7),
                         resultSet.getString(8),
-                        resultSet.getInt(9),
-                        resultSet.getInt(10)));
+                        resultSet.getString(9),
+                        resultSet.getString(10)));
                 con.close();
 
                 log.info("found student " + foundStudent.getSurname());
@@ -212,8 +199,8 @@ public class StudentDao {
                 foundStudent.setCity(resultSet.getString(6));
                 foundStudent.setAddress(new Address(resultSet.getInt(7),
                         resultSet.getString(8),
-                        resultSet.getInt(9),
-                        resultSet.getInt(10)));
+                        resultSet.getString(9),
+                        resultSet.getString(10)));
                 con.close();
 
                 log.info("found student " + foundStudent.getSurname());

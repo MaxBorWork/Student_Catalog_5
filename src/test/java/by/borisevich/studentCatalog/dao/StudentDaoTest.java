@@ -26,7 +26,7 @@ public class StudentDaoTest {
     @Test
     public void addStudent() {
         Student student = new Student("Test", "Test", "Test", 1 ,"Test",
-                new Address("Test", 2, 3));
+                new Address("Test", "2", "3"));
         int beforeSize = dao.getColOfRecords();
         dao.addStudent(student);
         int finalSize = dao.getColOfRecords();
@@ -50,7 +50,7 @@ public class StudentDaoTest {
     @Test
     public void getStudent() {
         Student student = new Student("getTest", "getTest", "getTest", 1 ,"getTest",
-                new Address("getTest", 2, 3));
+                new Address("getTest", "2", "3"));
         dao.addStudent(student);
         Student student1 = dao.getLastStudent();
         String resultSurname = student1.getSurname();
@@ -69,7 +69,7 @@ public class StudentDaoTest {
             dao.addStudent(student);
         } else {
             Student student = new Student("Test", "Test", "Test", 1 ,"Test",
-                    new Address("Test", 2, 3));
+                    new Address("Test", "2", "3"));
             dao.addStudent(student);
             beforeDelete = dao.getColOfRecords();
         }
@@ -88,7 +88,7 @@ public class StudentDaoTest {
     @Test
     public void getLastStudent() {
         Student student = new Student("getTest", "getTest", "getTest", 1 ,"getTest",
-                new Address("getTest", 2, 3));
+                new Address("getTest", "2", "3"));
         dao.addStudent(student);
         Student student1 = dao.getLastStudent();
         String resultSurname = student1.getSurname();
@@ -100,7 +100,7 @@ public class StudentDaoTest {
     public void getColOfRecords() {
         int expSize = dao.getColOfRecords() + 1;
         Student student = new Student("Test", "Test", "Test", 1 ,"Test",
-                new Address("Test", 2, 3));
+                new Address("Test", "2", "3"));
         dao.addStudent(student);
         int resultSize = dao.getColOfRecords();
         dao.deleteStudent(dao.getLastStudent().getId());

@@ -153,7 +153,6 @@
                 <directory>${project.basedir}</directory>
                 <targetPath>${project.build.directory}</targetPath>
                 <includes>
-                    <!--<include>main.db</include>-->
                     <include>log4j.properties</include>
                 </includes>
             </resource>

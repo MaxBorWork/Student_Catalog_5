@@ -63,8 +63,8 @@ public class AddStudentServlet extends HttpServlet {
         student.setCity(req.getParameter("studentCity"));
         Address address = new Address();
         address.setStreet(req.getParameter("studentStreet"));
-        address.setHouse(Integer.parseInt(req.getParameter("studentHouse")));
-        address.setFlat(Integer.parseInt(req.getParameter("studentFlat")));
+        address.setHouse(req.getParameter("studentHouse"));
+        address.setFlat(req.getParameter("studentFlat"));
         student.setAddress(address);
 
         return student;

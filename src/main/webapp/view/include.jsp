@@ -16,7 +16,7 @@
     .menu-bar ul {
         display: -webkit-box;
         margin-top: 10px;
-        padding-left: 75px;
+        padding-left: 115px;
     }
 
     .menu-bar ul li {

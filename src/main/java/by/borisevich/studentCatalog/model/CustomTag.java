@@ -7,6 +7,6 @@ import java.io.*;
 public class CustomTag extends SimpleTagSupport {
     public void doTag() throws JspException, IOException {
         JspWriter out = getJspContext().getOut();
-        out.println("Welcome to the Student Catalog");
+        out.println("Добро пожаловать!");
     }
 }
