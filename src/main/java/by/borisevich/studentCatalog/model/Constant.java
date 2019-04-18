@@ -19,58 +19,76 @@ public class Constant {
                                                                 "surname varchar(255) not null," +
                                                                 "name varchar(255) not null," +
                                                                 "secondName varchar(255) not null," +
-                                                                "groupNum int not null," +
+                                                                "groupId int not null," +
                                                                 "city varchar(255) not null," +
-                                                                "PRIMARY KEY (id))";
+                                                                "PRIMARY KEY (id),"+
+                                                                "FOREIGN KEY (groupId) REFERENCES StudentsGroup(id)" +
+                                                                ")";
 
     public static final String SQL_CREATE_ADDRESS_TABLE = "create table if not exists Address (" +
                                                                 "id int NOT NULL AUTO_INCREMENT," +
                                                                 "street varchar(255) not null," +
                                                                 "house varchar(255) not null," +
                                                                 "flat varchar(255) not null," +
+                                                                "studentId int not null," +
                                                                 "PRIMARY KEY (id)," +
-                                                                "FOREIGN KEY (id) REFERENCES Student(id)" +
+                                                                "FOREIGN KEY (studentId) REFERENCES Student(id)" +
                                                                 ")";
 
-//    public static final String SQL_CREATE_GROUP_TABLE = "create table if not exists Group (" +
-//                                                                "id int NOT NULL AUTO_INCREMENT," +
-//                                                                "groupNum varchar(255) not null," +
-//                                                                "house varchar(255) not null," +
-//                                                                "PRIMARY KEY (id)" +
-//                                                                ")";
+    public static final String SQL_CREATE_GROUP_TABLE = "create table if not exists StudentsGroup (" +
+                                                                "id int NOT NULL AUTO_INCREMENT," +
+                                                                "groupNum varchar(255) not null," +
+                                                                "groupType varchar(255) not null," +
+                                                                "PRIMARY KEY (id)" +
+                                                                ")";
 
 
 
     public static final String SQL_SELECT_LAST_RECORD = "SELECT * FROM Student INNER JOIN " +
-                                                            "Address ON Student.id = Address.id " +
+                                                            "Address ON Student.id = Address.studentId " +
+                                                            "INNER JOIN StudentsGroup ON Student.groupId = StudentsGroup.id " +
                                                             "WHERE Student.id = (SELECT max(id) FROM Student)";
 
     public static final String SQL_GET_COL_OF_RECORDS = "SELECT COUNT(id) FROM Student";
 
-    public static final String SQL_SELECT_ALL_RECORDS = "SELECT * FROM Student INNER JOIN Address ON Student.id = Address.id";
+    public static final String SQL_SELECT_ALL_RECORDS = "SELECT * FROM Student " +
+                                                                "INNER JOIN Address ON Student.id = Address.studentId" +
+                                                                "INNER JOIN StudentsGroup ON Student.groupId = StudentsGroup.id";
 
     public static final String SQL_UPDATE_STUDENT_QUERY = "UPDATE Student " +
                                                                 "SET surname=?, name=?, secondName=?, groupNum=?, city=? " +
                                                                 " WHERE id=?";
 
     public static final String SQL_UPDATE_ADDRESS_QUERY = "UPDATE Address SET street=?, house=?, flat=?" +
-                                                                " WHERE Address.id=?;";
+                                                                " WHERE Address.studentId=?;";
+
+    public static final String SQL_UPDATE_GROUP_QUERY = "UPDATE StudentsGroup SET groupId=?, type=?" +
+                                                                " WHERE StudentsGroup.id=?;";
 
     public static final String SQL_DELETE_STUDENT_QUERY = "DELETE FROM Student WHERE id=?";
 
-    public static final String SQL_DELETE_ADDRESS_QUERY = "DELETE FROM Address WHERE id=?";
+    public static final String SQL_DELETE_ADDRESS_QUERY = "DELETE FROM Address WHERE studentId=?";
+
+    public static final String SQL_DELETE_GROUP_QUERY = "DELETE FROM StudentsGroup WHERE id=?";
 
     public static final String SQL_SELECT_STUDENT_BY_ID = "SELECT * FROM Student INNER JOIN " +
-                                                                "Address ON Student.id = Address.id " +
+                                                                "Address ON Student.id = Address.studentId " +
+                                                                "INNER JOIN StudentsGroup ON Student.groupId = StudentsGroup.id " +
                                                                 "WHERE Student.id =?";
 
     public static final String SQL_INSERT_STUDENT_QUERY = "INSERT INTO Student" +
-                                                                "(surname, name, secondName, groupNum, city)" +
+                                                                "(surname, name, secondName, groupId, city)" +
                                                                 "VALUES (?,?,?,?,?)";
 
     public static final String SQL_INSERT_ADDRESS_QUERY = "INSERT INTO Address" +
-                                                                "(street, house, flat) " +
-                                                                "VALUES (?,?,?)";
+                                                                "(street, house, flat, studentId) " +
+                                                                "VALUES (?,?,?,?)";
+
+    public static final String SQL_INSERT_GROUP_QUERY = "INSERT INTO StudentsGroup" +
+                                                                "(groupNum, type) " +
+                                                                "VALUES (?,?)";
+
+    public static final String SQL_GET_GROUP_ID_BY_NUM = "SELECT id FROM StudentsGroup WHERE groupNum=?";
 
     public static void loggerConfig(Logger logger) {
         logger.setLevel(Level.ALL);

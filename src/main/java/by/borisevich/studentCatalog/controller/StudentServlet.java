@@ -55,6 +55,10 @@ public class StudentServlet extends HttpServlet {
             dao.deleteStudent(Integer.parseInt(studentId));
             doGet(req,resp);
         } else if (buttonValue.contains("editStudent")) {
+            List<String> groupsList = dao.getGroupNumList();
+            if (groupsList != null) {
+                req.setAttribute("groupsList", groupsList);
+            }
             Student student = dao.getStudent(Integer.parseInt(studentId));
             req = setReqParams(req, student);
             req.getRequestDispatcher("view/addStudent.jsp").forward(req, resp);

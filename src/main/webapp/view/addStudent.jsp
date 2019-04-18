@@ -16,8 +16,12 @@
                                class="form-control" required placeholder="ФИО"/>
                     </div>
                     <div class="form-group col-xs-10 col-xs-offset-1">
-                        <input type="number" name="studentGroup" value="${studentGroup}" id="studentGroup"
-                               class="form-control" required placeholder="№ группы"/>
+                        <select name="studentGroup" id="studentGroup"
+                                class="form-control" required placeholder="№ группы">
+                            <c:forEach items="${groupsList}" var="groupNum">
+                                <option>${groupNum}</option>
+                            </c:forEach>
+                        </select>
                     </div>
                     <div class="form-group col-xs-10 col-xs-offset-1">
                         <input type="text" name="studentCity" value="${studentCity}" id="studentCity"

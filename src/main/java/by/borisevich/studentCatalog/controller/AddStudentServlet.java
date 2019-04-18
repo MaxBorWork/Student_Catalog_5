@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 public class AddStudentServlet extends HttpServlet {
 
     private Logger logger = Logger.getLogger(AddStudentServlet.class);
+    private StudentDao dao = new StudentDao();
 
     public AddStudentServlet() {
         Constant.loggerConfig(logger);
@@ -23,13 +25,16 @@ public class AddStudentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("addStudent get request");
+        List<String> groupsList = dao.getGroupNumList();
+        if (groupsList != null) {
+            req.setAttribute("groupsList", groupsList);
+        }
         req.getRequestDispatcher("view/addStudent.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("addStudent post request");
-        StudentDao dao = new StudentDao();
         Student student = createStudent(req);
         if (!req.getParameter("studentID").equals("")) {
             student.setId(Integer.parseInt(req.getParameter("studentID")));
@@ -43,7 +48,7 @@ public class AddStudentServlet extends HttpServlet {
     private Student splitFIO(HttpServletRequest req) {
         logger.info("going to split full name");
         Student student = new Student();
-        String fullName = req.getParameter("studentFullName");
+        String fullName = req.getParameter("studentFIO");
         String[] fullNameSplit = fullName.split(" ");
 
         if (fullNameSplit.length != 3) {
