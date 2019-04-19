@@ -3,6 +3,14 @@
 <head>
     <title>Add Student Page</title>
     <%@ include file="/view/include.jsp" %>
+    <style>
+        #progress {
+            display: none;
+            color: green;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <%@ include file="/view/menu.jsp" %>
@@ -13,6 +21,7 @@
                     <div class="form-group col-xs-10 col-xs-offset-1">
                         <input type="text" id="studentFullName"
                                name="studentFIO" value="${studentFIO}"
+                               pattern="[A-Za-zА-Яа-яЁё]+\s[A-Za-zА-Яа-яЁё]+\s[A-Za-zА-Яа-яЁё]+"
                                class="form-control" required placeholder="ФИО"/>
                     </div>
                     <div class="form-group col-xs-10 col-xs-offset-1">
@@ -25,34 +34,39 @@
                     </div>
                     <div class="form-group col-xs-10 col-xs-offset-1">
                         <input type="text" name="studentCity" value="${studentCity}" id="studentCity"
-                               class="form-control" required placeholder="Город"/>
+                               class="form-control" pattern="^[A-Za-zА-Яа-яЁё0-9\s_-]+$" required placeholder="Город"/>
                     </div>
                     <div class="form-group col-xs-10 col-xs-offset-1">
                         <input type="text" name="studentStreet" value="${studentStreet}" id="studentStreet"
-                               class="form-control" required placeholder="Улица"/>
+                               class="form-control" pattern="^[A-Za-zА-Яа-яЁё0-9\s_-]+$" required placeholder="Улица"/>
                     </div>
                     <div class="form-group col-xs-10 col-xs-offset-1">
                         <input type="text" name="studentHouse" value="${studentHouse}" id="studentHouse"
-                               class="form-control" required placeholder="Дом"/>
+                               class="form-control" pattern="^[A-Za-zА-Яа-яЁё0-9\s_-]+$" required placeholder="Дом"/>
                     </div>
                     <div class="form-group col-xs-10 col-xs-offset-1">
                         <input type="text" name="studentFlat" value="${studentFlat}" id="studentFlat"
-                               class="form-control" required placeholder="Квартира"/>
+                               class="form-control" pattern="^[A-Za-zА-Яа-яЁё0-9\s_-]+$" required placeholder="Квартира"/>
                     </div>
                     <div class="form-group col-xs-10 col-xs-offset-1">
                         <input type="hidden" name="studentID" value="${studentID}" id="studentID"
-                               class="form-control" placeholder="ID"/>
+                               class="form-control" pattern="^[A-Za-zА-Яа-яЁё0-9\s_-]+$" placeholder="ID"/>
                     </div>
-                    <button type="submit" class="btn submit-button col-sm-6 col-sm-offset-3">
+                    <button id="addBtn" type="submit" class="btn submit-button col-sm-6 col-sm-offset-3">
                         <span>Добавить</span>
                     </button>
                     <br />
                 </form>
+                <div id="progress">Операция успешна</div>
             </div>
         </div>
     </div>
 </body>
 <script>
-
+    $(document).ready(function() {
+        $('#addStudentForm').submit(function() {
+            $('#progress').show();
+        });
+    });
 </script>
 </html>

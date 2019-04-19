@@ -49,6 +49,8 @@ public class Constant {
                                                             "INNER JOIN StudentsGroup ON Student.groupId = StudentsGroup.id " +
                                                             "WHERE Student.id = (SELECT max(id) FROM Student)";
 
+    public static final String SQL_SELECT_LAST_STUDENT_ID = "SELECT max(id) FROM Student";
+
     public static final String SQL_GET_COL_OF_RECORDS = "SELECT COUNT(id) FROM Student";
 
     public static final String SQL_SELECT_ALL_RECORDS = "SELECT * FROM Student " +
@@ -56,7 +58,7 @@ public class Constant {
                                                                 "INNER JOIN StudentsGroup ON Student.groupId = StudentsGroup.id";
 
     public static final String SQL_UPDATE_STUDENT_QUERY = "UPDATE Student " +
-                                                                "SET surname=?, name=?, secondName=?, groupNum=?, city=? " +
+                                                                "SET surname=?, name=?, secondName=?, groupId=?, city=? " +
                                                                 " WHERE id=?";
 
     public static final String SQL_UPDATE_ADDRESS_QUERY = "UPDATE Address SET street=?, house=?, flat=?" +

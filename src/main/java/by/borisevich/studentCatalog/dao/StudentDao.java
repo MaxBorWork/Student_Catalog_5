@@ -50,7 +50,7 @@ public class StudentDao {
                 preparedStatement.setString(1, student.getAddress().getStreet());
                 preparedStatement.setString(2, student.getAddress().getHouse());
                 preparedStatement.setString(3, student.getAddress().getFlat());
-                preparedStatement.setInt(4, getColOfRecords());
+                preparedStatement.setInt(4, getLastStudentId());
                 preparedStatement .executeUpdate();
                 con.close();
                 log.info("student " + student.getSurname() + " added");
@@ -215,6 +215,22 @@ public class StudentDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private int getLastStudentId() {
+        try {
+            Connection con = DriverManager.getConnection(Constant.dbUrl, Constant.dbUser, Constant.dbPassword);
+            PreparedStatement statement = con.prepareStatement(Constant.SQL_SELECT_LAST_STUDENT_ID);
+            ResultSet resultSet = statement.executeQuery();
+            int id = 0;
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
+                return id;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     public int getColOfRecords() {

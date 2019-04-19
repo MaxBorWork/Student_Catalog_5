@@ -42,6 +42,11 @@ public class AddStudentServlet extends HttpServlet {
         } else {
             dao.addStudent(student);
         }
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         req.getRequestDispatcher("view/addStudent.jsp").forward(req, resp);
     }
 

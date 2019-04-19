@@ -29,17 +29,10 @@ public class AddStudentServletTest {
         mockResponse = Mockito.mock(HttpServletResponse.class);
     }
 
-//    @Test
-//    public void doGet() throws ServletException, IOException {
-//        Mockito.when(mockRequest.getServletPath()).thenReturn("/addStudent");
-//        addStudentServlet.doGet(mockRequest, mockResponse);
-//        Mockito.verify(mockRequest, atLeast(1)).getParameter("studentID");
-//    }
-
     @Test
     public void doPost() throws ServletException, IOException {
-        Mockito.when(mockRequest.getParameter("studentFullName")).thenReturn("TestT test tess");
-        Mockito.when(mockRequest.getParameter("studentGroup")).thenReturn("123");
+        Mockito.when(mockRequest.getParameter("studentFIO")).thenReturn("TestT test tess");
+        Mockito.when(mockRequest.getParameter("studentGroup")).thenReturn("621702");
         Mockito.when(mockRequest.getParameter("studentCity")).thenReturn("secret");
         Mockito.when(mockRequest.getParameter("studentStreet")).thenReturn("secret");
         Mockito.when(mockRequest.getParameter("studentHouse")).thenReturn("1222");

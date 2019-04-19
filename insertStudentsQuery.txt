@@ -1,8 +1,7 @@
 INSERT INTO StudentsGroup (groupNum, groupType)
         VALUES  ('621702', 'Дневное'),
                 ('621701', 'Дневное'),
-                ('721701', 'Дневное'),
-                ('523702м', 'Заочное');
+                ('721701', 'Дневное');
 
 INSERT INTO  Student (surname, name, secondName, groupId, city)
         VALUES  ('Анищик', 'Андрей', 'Сергеевич', 1, 'Гродно'),

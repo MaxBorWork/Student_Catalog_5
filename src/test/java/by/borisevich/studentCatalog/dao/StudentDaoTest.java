@@ -25,7 +25,7 @@ public class StudentDaoTest {
 
     @Test
     public void addStudent() {
-        Student student = new Student("Test", "Test", "Test", 1 ,"Test",
+        Student student = new Student("Test", "Test", "Test", 621702,"Test",
                 new Address("Test", "2", "3"));
         int beforeSize = dao.getColOfRecords();
         dao.addStudent(student);
@@ -49,7 +49,7 @@ public class StudentDaoTest {
 
     @Test
     public void getStudent() {
-        Student student = new Student("getTest", "getTest", "getTest", 1 ,"getTest",
+        Student student = new Student("getTest", "getTest", "getTest", 621702,"getTest",
                 new Address("getTest", "2", "3"));
         dao.addStudent(student);
         Student student1 = dao.getLastStudent();
@@ -68,7 +68,7 @@ public class StudentDaoTest {
             afterDelete = dao.getColOfRecords();
             dao.addStudent(student);
         } else {
-            Student student = new Student("Test", "Test", "Test", 1 ,"Test",
+            Student student = new Student("Test", "Test", "Test", 621702,"Test",
                     new Address("Test", "2", "3"));
             dao.addStudent(student);
             beforeDelete = dao.getColOfRecords();
@@ -87,7 +87,7 @@ public class StudentDaoTest {
 
     @Test
     public void getLastStudent() {
-        Student student = new Student("getTest", "getTest", "getTest", 1 ,"getTest",
+        Student student = new Student("getTest", "getTest", "getTest", 621702,"getTest",
                 new Address("getTest", "2", "3"));
         dao.addStudent(student);
         Student student1 = dao.getLastStudent();
@@ -99,7 +99,7 @@ public class StudentDaoTest {
     @Test
     public void getColOfRecords() {
         int expSize = dao.getColOfRecords() + 1;
-        Student student = new Student("Test", "Test", "Test", 1 ,"Test",
+        Student student = new Student("Test", "Test", "Test", 621702 ,"Test",
                 new Address("Test", "2", "3"));
         dao.addStudent(student);
         int resultSize = dao.getColOfRecords();
