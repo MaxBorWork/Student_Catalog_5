@@ -22,7 +22,7 @@
                         <input type="text" id="studentFullName"
                                name="studentFIO" value="${studentFIO}"
                                pattern="[A-Za-zА-Яа-яЁё]+\s[A-Za-zА-Яа-яЁё]+\s[A-Za-zА-Яа-яЁё]+"
-                               class="form-control" required placeholder="ФИО"/>
+                               class="form-control" required placeholder="Фамилия Имя Отчество"/>
                     </div>
                     <div class="form-group col-xs-10 col-xs-offset-1">
                         <select name="studentGroup" id="studentGroup"

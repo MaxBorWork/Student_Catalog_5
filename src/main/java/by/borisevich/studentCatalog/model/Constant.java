@@ -96,7 +96,7 @@ public class Constant {
         logger.setLevel(Level.ALL);
         PatternLayout layout = new PatternLayout("%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n");
         try {
-            FileAppender fileAppender = new FileAppender(layout, "log_info.log");
+            FileAppender fileAppender = new FileAppender(layout, "/home/maksim/tomcat/logs/lab5-log.log");
             fileAppender.setAppend(false);
             fileAppender.setImmediateFlush(true);
             logger.addAppender(fileAppender);

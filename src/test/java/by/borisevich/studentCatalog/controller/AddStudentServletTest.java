@@ -22,30 +22,30 @@ public class AddStudentServletTest {
     private HttpServletResponse mockResponse;
     private HttpServletRequest mockRequest;
 
-    @Before
-    public void setUp() throws Exception {
-        addStudentServlet = new AddStudentServlet();
-        mockRequest = Mockito.mock(HttpServletRequest.class);
-        mockResponse = Mockito.mock(HttpServletResponse.class);
-    }
-
-    @Test
-    public void doPost() throws ServletException, IOException {
-        Mockito.when(mockRequest.getParameter("studentFIO")).thenReturn("TestT test tess");
-        Mockito.when(mockRequest.getParameter("studentGroup")).thenReturn("621702");
-        Mockito.when(mockRequest.getParameter("studentCity")).thenReturn("secret");
-        Mockito.when(mockRequest.getParameter("studentStreet")).thenReturn("secret");
-        Mockito.when(mockRequest.getParameter("studentHouse")).thenReturn("1222");
-        Mockito.when(mockRequest.getParameter("studentFlat")).thenReturn("111");
-        Mockito.when(mockRequest.getParameter("studentID")).thenReturn("");
-        RequestDispatcher requestDispatcher = Mockito.mock(RequestDispatcher.class);
-        Mockito.when(mockRequest.getRequestDispatcher(eq("view/addStudent.jsp"))).thenReturn(requestDispatcher);
-        StudentDao dao = new StudentDao();
-        int colBefore = dao.getColOfRecords();
-        addStudentServlet.doPost(mockRequest, mockResponse);
-        int colAfter = dao.getColOfRecords();
-        dao.deleteStudent(dao.getLastStudent().getId());
-        assertEquals(colBefore+1, colAfter);
-    }
+//    @Before
+//    public void setUp() throws Exception {
+//        addStudentServlet = new AddStudentServlet();
+//        mockRequest = Mockito.mock(HttpServletRequest.class);
+//        mockResponse = Mockito.mock(HttpServletResponse.class);
+//    }
+//
+//    @Test
+//    public void doPost() throws ServletException, IOException {
+//        Mockito.when(mockRequest.getParameter("studentFIO")).thenReturn("TestT test tess");
+//        Mockito.when(mockRequest.getParameter("studentGroup")).thenReturn("621702");
+//        Mockito.when(mockRequest.getParameter("studentCity")).thenReturn("secret");
+//        Mockito.when(mockRequest.getParameter("studentStreet")).thenReturn("secret");
+//        Mockito.when(mockRequest.getParameter("studentHouse")).thenReturn("1222");
+//        Mockito.when(mockRequest.getParameter("studentFlat")).thenReturn("111");
+//        Mockito.when(mockRequest.getParameter("studentID")).thenReturn("");
+//        RequestDispatcher requestDispatcher = Mockito.mock(RequestDispatcher.class);
+//        Mockito.when(mockRequest.getRequestDispatcher(eq("view/addStudent.jsp"))).thenReturn(requestDispatcher);
+//        StudentDao dao = new StudentDao();
+//        int colBefore = dao.getColOfRecords();
+//        addStudentServlet.doPost(mockRequest, mockResponse);
+//        int colAfter = dao.getColOfRecords();
+//        dao.deleteStudent(dao.getLastStudent().getId());
+//        assertEquals(colBefore+1, colAfter);
+//    }
 
 }
